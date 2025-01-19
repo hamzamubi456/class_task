@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Login Form with Validation</title>
+  <style>
+    body {
+      background-image: url(pexels-photo-1227511.jpg);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+       box-sizing: border-box; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f3f4f6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+     .container h3{
+      text-align: center; 
+      margin-bottom: 20px; 
+      color: #333;
+     }
+
+    .tab {
+      display: none;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .buttons button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .buttons button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+
+    /* Media Query for smaller screens */
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      .buttons button {
+        flex: 1;
+        margin: 0 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="tab1" class="tab active">
+      <h3>Fill for Login</h3>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <div class="buttons">
+        <button onclick="nextTab(1)">Next</button>
+      </div>
+    </div>
+
+    <div id="tab2" class="tab">
+      <h3>Verification Tab</h3>
+      <div class="form-group">
+        <label for="otp">Enter OTP</label>
+        <input type="text" id="otp" name="otp" placeholder="Enter the OTP sent to your email" required>
+      </div>
+      <div class="buttons">
+        <button onclick="prevTab(2)">Back</button>
+        <button onclick="submitForm()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function nextTab(currentTab) {
+      const tab = document.getElementById(`tab${currentTab}`);
+      const inputs = tab.querySelectorAll("input");
+      let valid = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          alert(`Please fill out the ${input.name} field.`);
+          valid = false;
+        }
+      });
+
+      if (valid) {
+        document.getElementById(`tab${currentTab}`).classList.remove("active");
+        document.getElementById(`tab${currentTab + 1}`).classList.add("active");
+      }
+    }
+
+    function prevTab(currentTab) {
+      document.getElementById(`tab${currentTab}`).classList.remove("active");
+      document.getElementById(`tab${currentTab - 1}`).classList.add("active");
+    }
+
+    function submitForm() {
+      const otpInput = document.getElementById("otp");
+      if (!otpInput.value.trim()) {
+        alert("Please enter the OTP.");
+      } else {
+        alert("Form submitted successfully!");
+      }
+    }
+  </script>
+</body>
+</html>
